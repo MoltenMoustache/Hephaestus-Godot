@@ -4,6 +4,7 @@
 #include "SystemManager.h"
 #include "Alias.h"
 #include "Systems/RenderingSystem.h"
+#include "Systems/TestJumpSystem.h"
 #include "Systems/TransformSystem.h"
 #include "Systems/CollisionDetectionSystem.h"
 #include "Systems/CollisionTransformSystem.h"
@@ -46,8 +47,11 @@ void ECSRunner::_process(double delta)
         m_SystemManager->RegisterSystem<Test::CollisionTransformSystem>();
         m_SystemManager->RegisterSystem<Test::CollisionDetectionSystem>();
         m_SystemManager->RegisterSystem<Test::CollisionResolutionSystem>();
+        m_SystemManager->RegisterSystem<Test::TestJumpSystem>();
 
         m_SystemManager->StartupSystems();
+
+        m_World->AddComponent<Test::Input>(m_World->CreateEntity());
 
         ECS::EntityHandle entity = m_World->CreateEntity();
         m_World->AddComponent<Test::Mesh>(entity, GodotHelpers::Rendering::CreateMesh("res://Bomberman.obj", scenarioRID));
@@ -85,4 +89,15 @@ void ECSRunner::_ready()
     } else {
         print_line("Failed to load MainScene.tscn");
     }
+}
+
+void ECSRunner::_input(const godot::Ref<godot::InputEvent>& event)
+{ 
+    // TODO: Crashes when accessed
+    if(!isInitialized)
+        return;
+
+    ECS::EntityHandle singletonEntity = m_World->GetView<Test::Input>().front();
+    auto& singletonComp = m_World->GetComponent<Test::Input>(singletonEntity);
+    singletonComp.m_Event = event.ptr();
 }

@@ -6,7 +6,7 @@
 
 namespace Test
 {
-    class TransformSystem : public System<WriteAccess<Test::Transform, Test::CollisionShape>, ReadAccess<Test::Velocity>>
+    class TransformSystem : public System<WriteAccess<Test::Transform>, ReadAccess<Test::Velocity>>
     {
         public:
         void Tick(float deltaTime) override

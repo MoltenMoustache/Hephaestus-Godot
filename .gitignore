@@ -2220,3 +2220,4 @@ build/godot-cpp/godot-cpp.vcxproj.filters
 build/godot-cpp/CMakeFiles/generate.stamp
 build/godot-cpp/CMakeFiles/generate.stamp.depend
 testProject/bin/windows/HEPHAESTUS.windows.template_debug.x86_64.dll
+testProject/bin/windows/~HEPHAESTUS.windows.template_debug.x86_64.dll

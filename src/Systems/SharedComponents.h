@@ -1,6 +1,7 @@
 #pragma once
 #include "Alias.h"
 #include "ComponentTypes.h"
+#include "godot_cpp/classes/input_event.hpp"
 #include "godot_cpp/variant/rid.hpp"
 #include "godot_cpp/variant/vector3.hpp"
 #include <cstdint>
@@ -8,6 +9,12 @@
 
 namespace Test
 {
+    // SINGLETON?
+    struct Input : public Component
+    {
+        godot::InputEvent* m_Event = nullptr;
+    };
+
     struct Transform : public Component
     {
         float x,y,z = 0.f;

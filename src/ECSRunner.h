@@ -7,6 +7,7 @@
 
 #include "SystemManager.h"
 #include "World.h"
+#include "godot_cpp/classes/input_event.hpp"
 
 class ECSRunner : public godot::Node {
     GDCLASS(ECSRunner, godot::Node)
@@ -18,6 +19,7 @@ class ECSRunner : public godot::Node {
 
     void _process(double delta) override;
     void _ready() override;
+    void _input(const godot::Ref<godot::InputEvent>& event) override;
 
     private:
     std::unique_ptr<ECS::World> m_World;
