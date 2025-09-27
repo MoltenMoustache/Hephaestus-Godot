@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://b5e7qrat7p0ur"]
+
+[node name="EcsRunner" type="ECSRunner"]

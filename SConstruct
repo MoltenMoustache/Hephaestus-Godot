@@ -5,8 +5,8 @@ import sys
 from methods import print_error
 
 
-libname = "EXTENSION-NAME"
-projectdir = "demo"
+libname = "HEPHAESTUS"
+projectdir = "testProject"
 
 localEnv = Environment(tools=["default"], PLATFORM="")
 
@@ -37,8 +37,24 @@ Run the following command to download godot-cpp:
 
 env = SConscript("godot-cpp/SConstruct", {"env": env, "customs": customs})
 
-env.Append(CPPPATH=["src/"])
-sources = Glob("src/*.cpp")
+if env["platform"] == "windows":
+    env.Append(CXXFLAGS=["/std:c++20"])
+else:
+    env.Append(CXXFLAGS=["-std=c++20"])
+
+
+build_type = "debug" if env["target"] == "template_debug" else "release"
+env.Append(CPPPATH=[
+    "src/",
+    "HephaestusLib/include"
+])
+
+env.Append(LIBPATH=["HephaestusLib/lib/{}".format(build_type)])
+env.Append(LIBS=["HephaestusLib"])
+
+env.SharedLibrary("hephaestus", Glob("src/**/*.cpp"))
+
+sources = Glob("src/*cpp") + Glob("src/Systems/*.cpp")
 
 if env["target"] in ["editor", "template_debug"]:
     try:
